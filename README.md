@@ -1,71 +1,74 @@
-# usecalloutsinmarkdown README
+# Markdown Callouts
 
-This is the README for your extension "usecalloutsinmarkdown". After writing up a brief description, we recommend including the following sections.
+Flexible callout rendering and editing for the Visual Studio Code Markdown preview.
+
+> This is an independent extension. It is not affiliated with or endorsed by the Foam project or its maintainers.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Render GitHub-style and custom callout types.
+- Add aliases, including punctuation aliases, and choose between extended and GitHub-only rendering.
+- Use foldable (`-`) and nested callouts.
+- Customize colors and icons with Markdown preview CSS.
+- Add or remove callout markup around selected Markdown text.
 
-For example if there is an image subfolder under your extension project workspace:
+## Syntax
 
-\!\[feature X\]\(images/feature-x.png\)
+```markdown
+> [!note] A title
+> Callout content.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+> [!idea]- Foldable idea
+> This callout starts collapsed.
 
-## Requirements
+> [!question] Nested example
+> > [!tip] Inner callout
+> > Callouts can be nested.
+```
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+If no title is supplied, the callout type is used as the title. A plain blockquote that does not begin with a callout marker is left unchanged.
 
-## Extension Settings
+The default extended mode recognizes custom types and aliases. Set `markdownCallouts.githubOnly` to `true` to render only `note`, `tip`, `important`, `warning`, and `caution`.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## Commands
 
-For example:
+- **Markdown Callouts: Add Callout to Selection** wraps selected lines using `markdownCallouts.defaultType` (default: `info`).
+- **Markdown Callouts: Remove Callout from Selection** removes the marker and quote prefixes from selected callout lines.
 
-This extension contributes the following settings:
+## Aliases
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+Built-in aliases can be changed in `markdownCallouts.aliases.builtin`. Custom types and aliases are configured in `markdownCallouts.aliases.custom`:
 
-## Known Issues
+```json
+{
+  "markdownCallouts.aliases.custom": {
+    "idea": "thought,proposal",
+    "done": "complete,√"
+  }
+}
+```
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Alias matching ignores case and surrounding whitespace. Comma-separated values are supported. Set `markdownCallouts.aliases.enabled` to `false` to disable aliases in extended mode.
 
-## Release Notes
+## Styling
 
-Users appreciate release notes as you update your extension.
+Built-in types have distinct colors. Custom callouts use a blue default and can be styled in a workspace stylesheet configured through VS Code's `markdown.styles` setting:
 
-### 1.0.0
+```css
+.markdown-callout[data-callout="idea"] {
+  --callout-color: 244, 114, 182;
+}
+```
 
-Initial release of ...
+The `--callout-color` value uses comma-separated RGB components. To change an icon, set `--callout-icon` on `.markdown-callout-icon` to a CSS mask URL. Custom styles can target `.markdown-callout[data-callout="your-type"]`.
 
-### 1.0.1
+## Development
 
-Fixed issue #.
+```sh
+npm install
+npm run compile
+npm run lint
+npm test
+```
 
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Callout rendering and selection-editing code in this extension is adapted from the MIT-licensed Foam project. See [LICENSE](./LICENSE) and [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) for attribution and license details.

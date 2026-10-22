@@ -1,10 +1,12 @@
 {
-  "name": "usecalloutsinmarkdown",
-  "displayName": "UseCallOutsInMarkDown",
-  "description": "",
+  "name": "markdown-callouts",
+  "displayName": "Markdown Callouts",
+  "description": "Flexible, styled callouts for Markdown previews.",
+  "publisher": "FreshWind",
   "version": "0.0.1",
+  "license": "MIT",
   "engines": {
-    "vscode": "^1.140.0"
+    "vscode": "^1.110.0"
   },
   "categories": [
     "Other"
@@ -12,12 +14,96 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
+    "markdown.markdownItPlugins": true,
+    "markdown.previewStyles": [
+      "./media/callouts.css"
+    ],
     "commands": [
       {
-        "command": "usecalloutsinmarkdown.helloWorld",
-        "title": "Hello World"
+        "command": "markdown-callouts.addCallout",
+        "title": "Markdown Callouts: Add Callout to Selection"
+      },
+      {
+        "command": "markdown-callouts.removeCallout",
+        "title": "Markdown Callouts: Remove Callout from Selection"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Markdown Callouts",
+      "properties": {
+        "markdownCallouts.githubOnly": {
+          "type": "boolean",
+          "default": false,
+          "description": "Render only GitHub-supported alert types. Other callout markers remain ordinary blockquotes."
+        },
+        "markdownCallouts.defaultType": {
+          "type": "string",
+          "default": "info",
+          "description": "Callout type inserted by the Add Callout to Selection command."
+        },
+        "markdownCallouts.aliases.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Apply aliases in extended mode."
+        },
+        "markdownCallouts.aliases.builtin": {
+          "type": "object",
+          "default": {
+            "note": "info",
+            "tip": "hint",
+            "important": "must",
+            "warning": "!,warn,attention",
+            "caution": "!!!,danger"
+          },
+          "properties": {
+            "note": {
+              "type": "string",
+              "description": "Comma-separated aliases for the note callout."
+            },
+            "tip": {
+              "type": "string",
+              "description": "Comma-separated aliases for the tip callout."
+            },
+            "important": {
+              "type": "string",
+              "description": "Comma-separated aliases for the important callout."
+            },
+            "warning": {
+              "type": "string",
+              "description": "Comma-separated aliases for the warning callout."
+            },
+            "caution": {
+              "type": "string",
+              "description": "Comma-separated aliases for the caution callout."
+            }
+          },
+          "additionalProperties": false,
+          "markdownDescription": "Aliases for the fixed GitHub callout types. Enter one or more comma-separated aliases."
+        },
+        "markdownCallouts.aliases.custom": {
+          "type": "object",
+          "default": {
+            "abstract": "summary,tldr",
+            "bug": "",
+            "doing": ">>",
+            "done": "success,√,V",
+            "error": "x,fail,failure",
+            "example": "",
+            "faq": "help,question,?",
+            "giveup": ">|",
+            "idea": "",
+            "missing": "",
+            "quote": "cite",
+            "todo": "",
+            "waitting": "=="
+          },
+          "additionalProperties": {
+            "type": "string"
+          },
+          "markdownDescription": "Custom callout types and comma-separated aliases. Keys become callout types; aliases are matched without regard to case or surrounding whitespace."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -28,17 +114,22 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.140.0",
+    "@types/markdown-it": "^12.2.3",
     "@types/mocha": "^10.0.10",
     "@types/node": "24.x",
-    "typescript-eslint": "^8.61.1",
-    "eslint": "^10.5.0",
-    "typescript": "^6.0.3",
+    "@types/vscode": "^1.140.0",
     "@vscode/test-cli": "^0.0.15",
-    "@vscode/test-electron": "^3.0.0"
+    "@vscode/test-electron": "^3.0.0",
+    "eslint": "^10.5.0",
+    "markdown-it": "^14.3.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.61.1"
   },
   "overrides": {
     "diff": "^8.0.4",
     "serialize-javascript": "^7.0.6"
+  },
+  "dependencies": {
+    "foam": "file:../../foam"
   }
 }

@@ -1,0 +1,160 @@
+.markdown-callout.callout {
+  --callout-color: 59, 130, 246;
+  --markdown-callout-color: rgb(var(--callout-color));
+  background-color: var(--vscode-textBlockQuote-background);
+  background-color: color-mix(
+    in srgb,
+    var(--markdown-callout-color) 8%,
+    var(--vscode-textBlockQuote-background)
+  );
+  border: 1px solid
+    color-mix(in srgb, var(--markdown-callout-color) 28%, transparent);
+  border-left: 3px solid var(--markdown-callout-color);
+  border-radius: 0 6px 6px 0;
+  margin: 1em 0;
+  padding: 0.75em 1em;
+}
+
+.markdown-callout[data-callout-type='important'] {
+  --callout-color: 168, 85, 247;
+}
+
+.markdown-callout[data-callout-type='danger'],
+.markdown-callout[data-callout-type='failure'],
+.markdown-callout[data-callout-type='error'],
+.markdown-callout[data-callout-type='fail'] {
+  --callout-color: 248, 113, 113;
+}
+
+.markdown-callout[data-callout-type='warning'],
+.markdown-callout[data-callout-type='attention'] {
+  --callout-color: 250, 204, 21;
+}
+
+.markdown-callout[data-callout-type='caution'] {
+  --callout-color: 248, 113, 113;
+}
+
+.markdown-callout[data-callout-type='success'],
+.markdown-callout[data-callout-type='done'] {
+  --callout-color: 74, 222, 128;
+}
+
+.markdown-callout[data-callout-type='idea'] {
+  --callout-color: 244, 114, 182;
+}
+
+.markdown-callout[data-callout-type='todo'] {
+  --callout-color: 96, 165, 250;
+}
+
+.markdown-callout[data-callout-type='doing'] {
+  --callout-color: 45, 212, 191;
+}
+
+.markdown-callout[data-callout-type='waitting'] {
+  --callout-color: 251, 146, 60;
+}
+
+.markdown-callout[data-callout-type='giveup'] {
+  --callout-color: 148, 163, 184;
+}
+
+.markdown-callout[data-callout-type='tip'],
+.markdown-callout[data-callout-type='hint'] {
+  --callout-color: 45, 212, 191;
+}
+
+.markdown-callout[data-callout-type='question'],
+.markdown-callout[data-callout-type='faq'],
+.markdown-callout[data-callout-type='help'] {
+  --callout-color: 251, 146, 60;
+}
+
+.markdown-callout[data-callout-type='bug'] {
+  --callout-color: 239, 68, 68;
+}
+
+.markdown-callout[data-callout-type='missing'] {
+  --callout-color: 249, 115, 22;
+}
+
+.markdown-callout[data-callout-type='quote'],
+.markdown-callout[data-callout-type='cite'] {
+  --callout-color: 148, 163, 184;
+}
+
+.markdown-callout-title {
+  align-items: center;
+  color: var(--markdown-callout-color);
+  display: flex;
+  font-size: 1.35em;
+  font-weight: 700;
+  gap: 0.5em;
+  line-height: 1.35;
+  margin: 0 0 0.6em;
+}
+
+.markdown-callout-icon {
+  background-color: currentColor;
+  flex: 0 0 1.1em;
+  height: 1.1em;
+  mask-image: var(
+    --callout-icon,
+    var(--markdown-callout-default-icon)
+  );
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-image: var(
+    --callout-icon,
+    var(--markdown-callout-default-icon)
+  );
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  width: 1.1em;
+}
+
+.markdown-callout-content > :first-child {
+  margin-top: 0;
+}
+
+.markdown-callout-content > :last-child {
+  margin-bottom: 0;
+}
+
+details.markdown-callout {
+  padding-bottom: 0.75em;
+}
+
+details.markdown-callout > .markdown-callout-title {
+  cursor: pointer;
+  list-style: none;
+  margin: -0.75em -1em 0;
+  padding: 0.75em 1em;
+}
+
+details.markdown-callout > .markdown-callout-title::-webkit-details-marker {
+  display: none;
+}
+
+.markdown-callout-chevron {
+  border-bottom: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  height: 0.45em;
+  margin-left: auto;
+  transform: rotate(45deg) translateY(-0.1em);
+  transition: transform 120ms ease;
+  width: 0.45em;
+}
+
+details.markdown-callout[open]
+  > .markdown-callout-title
+  .markdown-callout-chevron {
+  transform: rotate(225deg) translateY(-0.1em);
+}
+
+details.markdown-callout:not([open]) > .markdown-callout-content {
+  display: none;
+}

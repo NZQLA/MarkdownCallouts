@@ -1,26 +1,44 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import type MarkdownIt = require('markdown-it');
+import type {
+  BuiltinCalloutAliases,
+  CalloutAliases,
+} from './callout/markdown-it-callout';
+import {
+  combineCalloutAliases,
+  DEFAULT_BUILTIN_CALLOUT_ALIASES,
+  DEFAULT_CUSTOM_CALLOUT_ALIASES,
+  markdownItCallout,
+  readBuiltinCalloutAliases,
+} from './callout/markdown-it-callout';
+import activateCalloutCommands from './callout/callout-commands';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "usecalloutsinmarkdown" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('usecalloutsinmarkdown.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from UseCallOutsInMarkDown!');
-	});
-
-	context.subscriptions.push(disposable);
+  activateCalloutCommands(context);
+  return {
+    extendMarkdownIt(md: MarkdownIt): MarkdownIt {
+      const config = vscode.workspace.getConfiguration('markdownCallouts');
+      const aliases = combineCalloutAliases(
+        readBuiltinCalloutAliases(
+          config.get<BuiltinCalloutAliases>(
+            'aliases.builtin',
+            DEFAULT_BUILTIN_CALLOUT_ALIASES
+          )
+        ),
+        config.get<CalloutAliases>(
+          'aliases.custom',
+          DEFAULT_CUSTOM_CALLOUT_ALIASES
+        )
+      );
+      markdownItCallout(
+        md,
+        aliases,
+        config.get<boolean>('githubOnly', false),
+        config.get<boolean>('aliases.enabled', true)
+      );
+      return md;
+    },
+  };
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}
