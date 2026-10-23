@@ -43,7 +43,7 @@
         },
         "markdownCallouts.defaultType": {
           "type": "string",
-          "default": "info",
+          "default": "note",
           "description": "Callout type inserted by the Add Callout to Selection command."
         },
         "markdownCallouts.aliases.enabled": {

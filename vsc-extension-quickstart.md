@@ -21,3 +21,8 @@ The extension tests run in a VS Code test host. Test files are in `src/test/`.
 ## Package and publish
 
 See the [VS Code publishing guide](https://code.visualstudio.com/api/working-with-extensions/publishing-extension) before packaging or publishing.
+
+### Build the extension
+```
+npx @vscode/vsce package
+```

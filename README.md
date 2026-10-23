@@ -1,39 +1,73 @@
 # Markdown Callouts
 
-Flexible callout rendering and editing for the Visual Studio Code Markdown preview.
+Use callouts `> [!type]` in markdown like GitHub <img src="https://cdn.simpleicons.org/github" width="16" height="16" alt="GitHub logo"> and Obsidian<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/2023_Obsidian_logo.svg/120px-2023_Obsidian_logo.svg.png" width="16" height="16" alt="Obsidian logo">.
 
-> This is an independent extension. It is not affiliated with or endorsed by the Foam project or its maintainers.
+> [!note] 
+> It works well with `foam` and `Markdown All in One`.
 
-## Features
+# Features
+## Github Only Mode
+If you just want use callouts that support by GitHub.
 
-- Render GitHub-style and custom callout types.
-- Add aliases, including punctuation aliases, and choose between extended and GitHub-only rendering.
-- Use foldable (`-`) and nested callouts.
-- Customize colors and icons with Markdown preview CSS.
-- Add or remove callout markup around selected Markdown text.
-
-## Syntax
 
 ```markdown
-> [!note] A title
-> Callout content.
+> [!note] 
+> This is a note callout.
 
-> [!idea]- Foldable idea
-> This callout starts collapsed.
+> [!tip]
+> This is a tip callout.
 
-> [!question] Nested example
-> > [!tip] Inner callout
-> > Callouts can be nested.
+> [!warning]
+> This is a warning callout.
+
+> [!important]
+> This is an important callout.
+
+> [!caution]
+> This is a caution callout.
 ```
 
-If no title is supplied, the callout type is used as the title. A plain blockquote that does not begin with a callout marker is left unchanged.
+![](Docs/Assets/Feature-GitHub-Callouts.png)
 
-The default extended mode recognizes custom types and aliases. Set `markdownCallouts.githubOnly` to `true` to render only `note`, `tip`, `important`, `warning`, and `caution`.
+> [!warning] 
+> Github  don't support callouts titles.
+> So don't include a title after the callout type.
+
+### Config: Just use GitHub callouts
+- ☑ Active (GitHub-only mode)
+- ☐ Disabled Aliases
+![](Docs/Assets/Feature-GitHub-Only.png)
+
+
+## Free Mode : Use any callouts and set aliases
+Ensure the github-only mode is disabled to use any callouts and set aliases.
+![](Docs/Assets/Feature-Enable-All-Callouts.png)
+
+I have add some common callouts and their aliases for extended mode.
+![](Docs/Assets/Feature-build-in-callouts.png)
+
+![](Docs/Assets/Feature-build-in-callouts-example.png)
+
+
+### You can add any aliases for them.
+![](Docs/Assets/Feature-Aliases.gif)
+
+### Add `-` for foldable callouts
+```markdown
+> [!note]- Foldable note
+> This callout starts collapsed.
+```
+![](Docs/Assets/Feature-Foldout-Callout.gif)
+
+
+
 
 ## Commands
 
 - **Markdown Callouts: Add Callout to Selection** wraps selected lines using `markdownCallouts.defaultType` (default: `info`).
 - **Markdown Callouts: Remove Callout from Selection** removes the marker and quote prefixes from selected callout lines.
+
+![](Docs/Assets/Feature-Command-Add-Or-Remove-Callout.gif)
 
 ## Aliases
 
@@ -72,3 +106,9 @@ npm test
 ```
 
 Callout rendering and selection-editing code in this extension is adapted from the MIT-licensed Foam project. See [LICENSE](./LICENSE) and [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) for attribution and license details.
+
+
+
+## Config 
+You should reload window to apply changes to the configuration settings.
+![](Docs/Assets/Feature-Reload-Window.png)
