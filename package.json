@@ -1,12 +1,17 @@
 {
   "name": "markdown-callouts",
   "displayName": "Markdown Callouts",
-  "description": "Flexible, styled callouts for Markdown previews.",
+  "description": "Use callouts in markdown like github and obsidian .",
   "publisher": "FreshWind",
   "version": "0.0.1",
+  "icon": "media/extension-icon.png",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NZQLA/MarkdownCallouts.git"
+  },
   "engines": {
-    "vscode": "^1.110.0"
+    "vscode": "^1.140.0"
   },
   "categories": [
     "Other"
@@ -128,8 +133,5 @@
   "overrides": {
     "diff": "^8.0.4",
     "serialize-javascript": "^7.0.6"
-  },
-  "dependencies": {
-    "foam": "file:../../foam"
   }
 }
